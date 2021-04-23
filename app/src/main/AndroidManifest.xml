@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.DateSelectionProject">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/project_icon"
+        android:label="Date Selection"
+        android:roundIcon="@drawable/project_icon"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NewDesign">
+        <activity android:name="com.example.DateSelectionProject.Main.InstructionsActivity"/>
+        <activity android:name="com.example.DateSelectionProject.Main.ExportDataActivity"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial1_Old"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial2_Old"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial3_Old"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial1_New"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial2_New"/>
+        <activity android:name="com.example.DateSelectionProject.Trials.Trial3_New"/>
+        <activity android:name="com.example.DateSelectionProject.Main.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
