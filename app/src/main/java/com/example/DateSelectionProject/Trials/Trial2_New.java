@@ -35,6 +35,7 @@ import com.example.DateSelectionProject.Main.TrialAttempt;
 import com.example.DateSelectionProject.NewDesign.MonthList;
 import com.example.DateSelectionProject.NewDesign.WheelList;
 import com.example.DateSelectionProject.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -71,7 +72,7 @@ public class Trial2_New extends AppCompatActivity implements MonthList.OnSelectL
     static List<TrialAttempt> listAttempts;
 
     //computed variables
-    final Context context = Trial2_New.this;  //context of current screen
+    final Context context = com.example.DateSelectionProject.Trials.Trial2_New.this;  //context of current screen
     static String dateToSelect = ""; // randomly generated date to select
     Intent nextScreenIntent;  //intent of next screen when trial ends
     String dateSelectedByUser = ""; // date selected by user
@@ -244,7 +245,10 @@ public class Trial2_New extends AppCompatActivity implements MonthList.OnSelectL
         TextView selectedMonth = null;
         for (int i = 0; i < monthsList.getChildCount(); i++) {
             TextView monthListItem = (TextView) monthsList.getChildAt(i);
-            if (monthListItem != null && monthListItem.getText().equals("Apr")) {
+            Calendar cal = Calendar.getInstance();
+            int month = cal.get(Calendar.MONTH);
+            String monthName = Common.GetMonthName(month+1);
+            if (monthListItem != null && monthListItem.getText().equals(monthName)) {
                 selectedMonth = monthListItem;
                 break;
             }
