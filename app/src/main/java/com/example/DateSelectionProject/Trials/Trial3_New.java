@@ -53,11 +53,11 @@ public class Trial3_New extends AppCompatActivity implements MonthList.OnSelectL
     final static int partNumber = 2; // part number
     final static boolean isFirstTrialActivity = false; //is its first trial activity to launch
     final static boolean isLastTrialActivity = true; // is it last trial activity
-    final static String trialType = "LargeNew"; // trial type
+    final static String designType = "New"; // trial type
     final static String dateEra = "Large";
-    final static String designType = "New Design"; // is it old design or new design
+    final static String designTypeStr = "New Design"; // is it old design or new design
     final static String trialTask = " - Date Selection"; // trial task description
-    final static String popupMessage = "You are about to use " + designType + " for " + trialTask + ".";
+    final static String popupMessage = "You are about to use " + designTypeStr + " for " + trialTask + ".";
     final static String instructionsPopUpTitle = "Instructions - Trial "; // trial instructions popup title
     final static String trialCompletePopUpTitle = "Success"; // trial success popup titile
     final static String trialCompletionPopupMessage = "You have successfully completed the Trial " + trialNumber +
@@ -451,7 +451,8 @@ public class Trial3_New extends AppCompatActivity implements MonthList.OnSelectL
 
             //successful attempt not equal to total attempts
             if (successAttempts < totalAttempts) {
-                listAttempts.add(new TrialAttempt(successAttempts,timeTaken, noOfTaps, errorCount));
+                listAttempts.add(new TrialAttempt(successAttempts,
+                        Common.GetYearDiff(dateToSelect),timeTaken, noOfTaps, errorCount));
                 StartNextTrialAttempt(false);
                 LayoutInflater l = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View successPopUpView = layoutInflater.inflate(R.layout.activity_success, null);
@@ -464,33 +465,31 @@ public class Trial3_New extends AppCompatActivity implements MonthList.OnSelectL
                 title.setText(trialCompletePopUpTitle);
                 textViewSuccessAttempts.setText(trialCompletionPopupMessage);
 
-                builder.setPositiveButton(popUButtonText, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // save data in list
-                        listAttempts.add(new TrialAttempt(successAttempts,timeTaken, noOfTaps, errorCount));
-                        if (!isFirstTrialActivity) {
+                builder.setPositiveButton(popUButtonText, (dialog, which) -> {
+                    // save data in list
+                    listAttempts.add(new TrialAttempt(successAttempts,
+                            Common.GetYearDiff(dateToSelect),timeTaken, noOfTaps, errorCount));
+                    if (!isFirstTrialActivity) {
 
-                            Trial trial = new Trial(trialNumber, trialType, new ArrayList<>(),
-                                    totalAttemptsMadeByUser, successAttempts, failedAttempts);
-                            trial.setTrialAttempts(listAttempts);
-                            trials.add(trial);
-                            data.setTrials(trials);
-                            nextScreenIntent.putExtra("Data", data);
-                            trials = new ArrayList<>();
-                        } else {
-                            List<Trial> trials = new ArrayList<>();
-                            Trial trial = new Trial(trialNumber, trialType, new ArrayList<>(),
-                                    totalAttemptsMadeByUser, successAttempts, failedAttempts);
-                            trial.setTrialAttempts(listAttempts);
-                            trials.add(trial);
-                            data.setTrials(trials);
-                            nextScreenIntent.putExtra("Data", data);
-                        }
-                        data = new Data();
-                        listAttempts = new ArrayList<>();
-                        startActivity(nextScreenIntent);
+                        Trial trial = new Trial(trialNumber, designType, new ArrayList<>(),
+                                totalAttemptsMadeByUser, successAttempts, failedAttempts);
+                        trial.setTrialAttempts(listAttempts);
+                        trials.add(trial);
+                        data.setTrials(trials);
+                        nextScreenIntent.putExtra("Data", data);
+                        trials = new ArrayList<>();
+                    } else {
+                        List<Trial> trials = new ArrayList<>();
+                        Trial trial = new Trial(trialNumber, designType, new ArrayList<>(),
+                                totalAttemptsMadeByUser, successAttempts, failedAttempts);
+                        trial.setTrialAttempts(listAttempts);
+                        trials.add(trial);
+                        data.setTrials(trials);
+                        nextScreenIntent.putExtra("Data", data);
                     }
+                    data = new Data();
+                    listAttempts = new ArrayList<>();
+                    startActivity(nextScreenIntent);
                 });
                 builder.setCustomTitle(title);
                 builder.setView(popupView);
